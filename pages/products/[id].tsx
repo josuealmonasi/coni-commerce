@@ -1,18 +1,18 @@
 import Image from 'next/image'
-import getProducts from '../../sfcc.js'
+import getProducts from '../../getProducts.ts'
 
-export default function Product({ product }) {
+export default function Product({ product }: { product: any  }) {
   return (
     <div className="flex h-screen flex-col justify-between">
       <div className="mx-auto mt-16 max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="mx-auto flex flex-col sm:flex-row">
-          <Image
+          {/* <Image
             alt="coffee"
             className="rounded-lg"
             src={product.imageGroups[0].images[0].link}
             width={560}
             height={640}
-          />
+          /> */}
           <div className="mt-10 flex flex-col sm:mt-0 sm:ml-10">
             <h1 className="mt-1 text-4xl font-bold uppercase text-gray-900 sm:text-5xl sm:tracking-tight lg:text-5xl">
               {product.name}
@@ -23,7 +23,7 @@ export default function Product({ product }) {
             <div className="mt-10 mb-5 border-t border-gray-200 pt-10 font-bold">
               Description
             </div>
-            <p className="max-w-xl">{product.longDescription}</p>
+            <p className="max-w-xl">{product.description}</p>
           </div>
         </div>
       </div>
@@ -32,7 +32,8 @@ export default function Product({ product }) {
 }
 
 export async function getStaticProps({ params }) {
-  const searchResults = await getProducts(params.slug)
+  console.log( 'holi')
+  const searchResults = await getProducts(params.id)
   const coffeeProduct = searchResults[0]
 
   return {
@@ -44,10 +45,11 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
   const coffeeProducts = await getProducts('coffee')
+  console.log(coffeeProducts)
   let fullPaths = []
 
   for (let product of coffeeProducts) {
-    fullPaths.push({ params: { slug: product.id } })
+    fullPaths.push({ params: { id: product.id.toString() } })
   }
 
   return {

@@ -1,17 +1,16 @@
 import { useRef } from 'react'
 import Header from '../components/Header'
 import ProductCard from '../components/ProductCard'
-import getProducts from '../sfcc.js'
+import getProducts from '../getProducts.ts'
 
-export default function Gallery({ data }) {
+export default function Gallery({ data }: { data: any }) {
   let coffeeRef = useRef<HTMLParagraphElement>()
 
   const scrollHandler = (e) => {
     e.preventDefault()
-    // @ts-ignore
-    coffeeRef.scrollIntoView({
+    coffeeRef.current.scrollTo({
+      top: 0,
       behavior: 'smooth',
-      block: 'start',
     })
   }
 
@@ -41,7 +40,8 @@ export default function Gallery({ data }) {
 }
 
 export async function getStaticProps() {
-  const searchResults = await getProducts('coffee')
+  const searchResults = await getProducts('me')
+  
 
   return {
     props: {
