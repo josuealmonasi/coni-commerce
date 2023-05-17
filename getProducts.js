@@ -21,7 +21,7 @@ const products = [
   },
 ];
 
-export default async function getProducts(user: string) {
+export default async function getProducts(user) {
   const res = []
   products.forEach((product) => {
      kv.hset(`product:${product.id}`, product )});

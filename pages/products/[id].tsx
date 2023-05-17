@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import getProducts from '../../getProducts.ts'
+import getProducts from '../../getProducts.js'
 
 export default function Product({ product }: { product: any  }) {
   return (

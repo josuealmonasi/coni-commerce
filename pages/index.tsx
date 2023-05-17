@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import Header from '../components/Header'
 import ProductCard from '../components/ProductCard'
-import getProducts from '../getProducts.ts'
+import getProducts from '../getProducts.js'
 
 export default function Gallery({ data }: { data: any }) {
   let coffeeRef = useRef<HTMLParagraphElement>()
